@@ -30,7 +30,8 @@ export const copy = () => gulp
     'src/fonts/**/*',
     'src/images/**/*',
   ], {
-    base: 'src'
+    base: 'src',
+    encoding: false
   })
   .pipe(gulp.dest('dist'))
   .pipe(browserSync.stream({
