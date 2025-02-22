@@ -20,7 +20,7 @@ export const css = () => gulp
   .pipe(browserSync.stream());
 
 export const js = () => gulp
-  .src('src/**/*.js')
+  .src('src/js/**/*.js')
   .pipe(gulp.dest('dist/js'))
   .pipe(browserSync.stream());
 
