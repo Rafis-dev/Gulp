@@ -13,6 +13,8 @@
     "browser-sync": "^3.0.3",
     "del": "^8.0.0",
     "gulp": "^5.0.0",
-    "gulp-cssimport": "^7.0.0"
+    "gulp-cssimport": "^7.0.0",
+    "gulp-sass": "^6.0.0",
+    "sass": "^1.85.1"
   }
 }
