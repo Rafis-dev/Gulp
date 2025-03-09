@@ -1,20 +1,49 @@
 {
-  "name": "gulp",
-  "version": "1.0.0",
-  "description": "start gulp",
-  "main": "index.js",
-  "type": "module",
+  "name": "template-gulp",
+  "version": "1.1.0",
+  "description": "Описание",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "gulp",
+    "build": "gulp build"
   },
+  "browserslist": [
+    "cover 99%"
+  ],
+  "type": "module",
+  "repository": "",
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "homepage": "",
   "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "babel-loader": "^10.0.0",
     "browser-sync": "^3.0.3",
+    "critical": "^7.2.1",
     "del": "^8.0.0",
     "gulp": "^5.0.0",
-    "gulp-cssimport": "^7.0.0",
-    "gulp-sass": "^6.0.0",
-    "sass": "^1.85.1"
+    "gulp-autoprefixer": "^9.0.0",
+    "gulp-avif": "^1.1.1",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-eslint-new": "^2.4.0",
+    "gulp-file-include": "^2.3.0",
+    "gulp-group-css-media-queries": "^1.2.2",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-if": "^3.0.0",
+    "gulp-image": "^6.3.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-pretty-html": "^2.0.10",
+    "gulp-pug": "^5.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^6.0.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-svg-sprite": "^2.0.3",
+    "gulp-terser": "^2.1.0",
+    "gulp-tinypng-compress": "^1.2.5",
+    "gulp-webp": "^5.0.0",
+    "sass": "^1.85.1",
+    "webpack": "^5.98.0",
+    "webpack-stream": "^7.0.0"
   }
 }
