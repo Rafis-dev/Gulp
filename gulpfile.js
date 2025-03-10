@@ -5,7 +5,9 @@ import gulp from "gulp";
 import gulpif from "gulp-if";
 import browserSync from "browser-sync";
 import rename from "gulp-rename";
+//предотвращает прерывание Gulp при ошибках.
 import plumber from "gulp-plumber";
+//очистка папки dist/ перед сборкой.
 import { deleteSync } from "del";
 
 // html*pug
@@ -22,16 +24,22 @@ const compSass = gulpSass(sass);
 import sourcemaps from "gulp-sourcemaps";
 import autoprefixer from "gulp-autoprefixer";
 import cleanCSS from "gulp-clean-css";
+//объединение медиазапросов для оптимизации.
 import gcmq from "gulp-group-css-media-queries";
+//енерация критического CSS (для ускорения загрузки страниц).
 import { stream as critical } from "critical";
 
 // js
+//минификация JS.
 import terser from "gulp-terser";
+//обработка JS через Webpack (бандлинг, транспиляция).
 import webpackStream from "webpack-stream";
 import webpack from "webpack";
 
 //img
+// Оптимизация изображений через TinyPNG API, условно бесплатный
 import tinypng from "gulp-tinypng-compress";
+// локальная оптимизация изображений.
 import gulpImg from "gulp-image";
 import gulpWebp from "gulp-webp";
 import gulpAvif from "gulp-avif";
