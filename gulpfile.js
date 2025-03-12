@@ -15,6 +15,9 @@ import htmlmin from "gulp-htmlmin";
 import fileinclude from "gulp-file-include";
 import gulppug from "gulp-pug";
 import prettyHtml from "gulp-pretty-html";
+// автоматически оборачивает изображение в тег picture
+// и добавляет webp и avif
+import avifWebpHTML from "gulp-avif-webp-html";
 
 // css
 import * as sass from "sass";
@@ -88,6 +91,7 @@ const path = {
 export const html = () =>
   gulp
     .src(path.src.html)
+    .pipe(avifWebpHTML())
     .pipe(fileinclude())
     .pipe(
       gulpif(
@@ -105,6 +109,7 @@ export const html = () =>
 export const pug = () =>
   gulp
     .src(path.src.pug)
+    .pipe(avifWebpHTML())
     .pipe(
       gulppug({
         pretty: true,
