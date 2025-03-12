@@ -5,6 +5,7 @@ import gulp from "gulp";
 import gulpif from "gulp-if";
 import browserSync from "browser-sync";
 import rename from "gulp-rename";
+import replace from "gulp-replace";
 //предотвращает прерывание Gulp при ошибках.
 import plumber from "gulp-plumber";
 //очистка папки dist/ перед сборкой.
@@ -15,9 +16,6 @@ import htmlmin from "gulp-htmlmin";
 import fileinclude from "gulp-file-include";
 import gulppug from "gulp-pug";
 import prettyHtml from "gulp-pretty-html";
-// автоматически оборачивает изображение в тег picture
-// и добавляет webp и avif
-import avifWebpHTML from "gulp-avif-webp-html";
 
 // css
 import * as sass from "sass";
@@ -47,6 +45,20 @@ import gulpImg from "gulp-image";
 import gulpWebp from "gulp-webp";
 import gulpAvif from "gulp-avif";
 import svgSprite from "gulp-svg-sprite";
+
+// функция для оборачивания img в picture и добавления webp и avif
+const addPicture = () =>
+  replace(
+    /<img([^>]+)src="([^"]+\.(?:jpg|jpeg|png))"([^>]*)>/gi,
+    (match, attrsBefore, src, attrsAfter) => {
+      // Проверяем, не находится ли <img> уже внутри <picture>
+      if (match.includes("<picture")) return match;
+
+      const webpSrc = src.replace(/\.(jpg|jpeg|png)$/, ".webp");
+      const avifSrc = src.replace(/\.(jpg|jpeg|png)$/, ".avif");
+      return `<picture><source srcset="${avifSrc}" type="image/avif"><source srcset="${webpSrc}" type="image/webp"><img${attrsBefore}src="${src}"${attrsAfter}></picture>`;
+    }
+  );
 
 let dev = false;
 
@@ -91,7 +103,7 @@ const path = {
 export const html = () =>
   gulp
     .src(path.src.html)
-    .pipe(avifWebpHTML())
+    .pipe(addPicture())
     .pipe(fileinclude())
     .pipe(
       gulpif(
@@ -109,7 +121,7 @@ export const html = () =>
 export const pug = () =>
   gulp
     .src(path.src.pug)
-    .pipe(avifWebpHTML())
+    .pipe(addPicture())
     .pipe(
       gulppug({
         pretty: true,
