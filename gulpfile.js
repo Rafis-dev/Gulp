@@ -46,20 +46,6 @@ import gulpWebp from "gulp-webp";
 import gulpAvif from "gulp-avif";
 import svgSprite from "gulp-svg-sprite";
 
-// функция для оборачивания img в picture и добавления webp и avif
-const addPicture = () =>
-  replace(
-    /<img([^>]+)src="([^"]+\.(?:jpg|jpeg|png))"([^>]*)>/gi,
-    (match, attrsBefore, src, attrsAfter) => {
-      // Проверяем, не находится ли <img> уже внутри <picture>
-      if (match.includes("<picture")) return match;
-
-      const webpSrc = src.replace(/\.(jpg|jpeg|png)$/, ".webp");
-      const avifSrc = src.replace(/\.(jpg|jpeg|png)$/, ".avif");
-      return `<picture><source srcset="${avifSrc}" type="image/avif"><source srcset="${webpSrc}" type="image/webp"><img${attrsBefore}src="${src}"${attrsAfter}></picture>`;
-    }
-  );
-
 let dev = false;
 
 const path = {
@@ -99,6 +85,19 @@ const path = {
   },
 };
 
+const addPicture = () =>
+  replace(
+    /<img([^>]+)src="([^"]+\.(?:jpg|jpeg|png))"([^>]*)>/gi,
+    (match, attrsBefore, src, attrsAfter) => {
+      // Проверяем, не находится ли <img> уже внутри <picture>
+      if (match.includes("<picture")) return match;
+
+      const webpSrc = src.replace(/\.(jpg|jpeg|png)$/, ".webp");
+      const avifSrc = src.replace(/\.(jpg|jpeg|png)$/, ".avif");
+      return `<picture><source srcset="${avifSrc}" type="image/avif"><source srcset="${webpSrc}" type="image/webp"><img${attrsBefore}src="${src}"${attrsAfter}></picture>`;
+    }
+  );
+
 //html
 export const html = () =>
   gulp
@@ -130,10 +129,9 @@ export const pug = () =>
         this.emit("end");
       })
     )
-    .pipe(gulpif(!dev, gulp.dest(path.dist.html)))
     .pipe(
       gulpif(
-        dev,
+        !dev,
         prettyHtml(),
         htmlmin({
           removeComments: true,
@@ -312,12 +310,13 @@ export const avif = () =>
 
 export const critCSS = () =>
   gulp
-    .src(path.src.html)
+    .src(path.dist.html)
     .pipe(
       critical({
         base: path.dist.base,
         inline: true,
         css: [path.dist.cssIndex],
+        minify: true,
       })
     )
     .on("error", (err) => {
