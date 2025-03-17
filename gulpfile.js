@@ -310,18 +310,23 @@ export const avif = () =>
 
 export const critCSS = () =>
   gulp
-    .src(path.dist.html)
+    .src(path.src.html)
     .pipe(
       critical({
         base: path.dist.base,
         inline: true,
         css: [path.dist.cssIndex],
-        minify: true,
       })
     )
     .on("error", (err) => {
       console.error(err.message);
     })
+    .pipe(
+      htmlmin({
+        removeComments: true,
+        collapseWhitespace: true,
+      })
+    )
     .pipe(gulp.dest(path.dist.base));
 
 export const copy = () =>
