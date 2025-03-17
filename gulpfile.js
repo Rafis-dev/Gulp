@@ -69,7 +69,7 @@ const path = {
     imgF: "src/img/**/*.{jpg,jpeg,png}",
     assets: [
       "src/fonts/**/*.*",
-      //"src/icons/**/*.*",
+      "src/icons/**/*.*",
       "src/video/**/*.*",
       "src/public/**/*.*",
     ],
@@ -85,6 +85,7 @@ const path = {
   },
 };
 
+// Функция для автоматического добавления тега picture, webp и avif
 const addPicture = () =>
   replace(
     /<img([^>]+)src="([^"]+\.(?:jpg|jpeg|png))"([^>]*)>/gi,
